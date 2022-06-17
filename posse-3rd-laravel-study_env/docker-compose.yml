@@ -5,7 +5,7 @@ services:
     build:
       context: ./db
     ports:
-      - 3306:3306
+      - 3305:3306
     volumes:
       - ./db/var/lib/mysql:/var/lib/mysql
     environment:
@@ -18,13 +18,13 @@ services:
     build:
       context: ./app
     volumes:
-      - ../src:/work/backend
+      - ../posse-3rd-laravel-study:/work/backend
     depends_on: ["db"]
   web:
     build:
       context: ./web
     ports:
-      - 80:80
+      - 8000:80
     volumes:
-      - ../src:/work/backend
+      - ../posse-3rd-laravel-study:/work/backend
     depends_on: ["app"]
