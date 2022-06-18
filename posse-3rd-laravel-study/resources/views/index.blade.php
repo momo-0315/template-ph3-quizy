@@ -14,7 +14,7 @@
 
 <body>
     <div class="whole_wrapper">
-        <a href="" class="quiz_link"><span>管理者画面</span></a>
+        <a href="/home" class="quiz_link"><span>管理者画面ログイン</span></a>
         @foreach($big_questions as $big_question)
 
         <a href="/quiz/{{ $big_question['id'] }}" class="quiz_link">
