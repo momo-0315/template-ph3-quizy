@@ -14,18 +14,22 @@ class QuestionsTableSeeder extends Seeder
         $questions = [
             [
                 'big_question_id' => 1,
+                'question_id' => 1,
                 'img' => 'takanawa.png'
             ],
             [
                 'big_question_id' => 1,
+                'question_id' => 2,
                 'img' => 'kameido.png'
             ],
             [
                 'big_question_id' => 1,
+                'question_id' => 3,
                 'img' => 'koujimati.png'
             ],
             [
                 'big_question_id' => 2,
+                'question_id' => 1,
                 'img' => 'mukainada.png'
             ],
         ];

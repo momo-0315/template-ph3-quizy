@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     @endsection
     <!-- headerがここに入る -->
     @section('quiz')
@@ -38,7 +39,8 @@
             <img src="/img/{{ $question['img'] }}">
 
             <ul id="answerLists_{{ $question['id'] }}">
-                @foreach ($choices->where('question_id', $question['id']) as $choice)
+                @foreach ($choices->where('big_question_id', $question['big_question_id'])->where('question_id', $question['question_id']) as $choice)
+                
                 <li id="answerList_{{ $question['id'] }}_{{ $choice['option_number'] }}" onclick="check({{ $question['id'] }}, {{ $choice['option_number'] }}, 0)">
                     {{ $choice['choice_name'] }}
                 </li>
@@ -46,17 +48,15 @@
             </ul>
             <div class="answerBox" id="answerBox_{{ $question['id'] }}_0">
                 <p class="rightWrong right">正解</p>
-                <p class="description">正解は「{{ $choices->where('question_id', $question->id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
+                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
             </div>
             <div class="answerBox" id="answerBox_{{ $question['id'] }}">
                 <p class="rightWrong wrong">不正解</p>
-                <p class="description">正解は「{{ $choices->where('question_id', $question->id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
+                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
             </div>
 
             @endforeach
         </div>
-
-
     </div>
     </div>
     <script src="{{ asset('js/main.js') }}"></script>

@@ -1,3 +1,4 @@
+<!-- 管理者ログインホーム画面 -->
 @extends('layouts.app')
 
 @section('content')
@@ -22,7 +23,7 @@
 </div>
 <div class="whole-wrapper">
     <div class="big-question-add-btn">
-        <a href="" class="home-link-btn">新たに#〇〇の難読地名クイズを追加</a>
+        <a href="/big_question/add" class="home-link-btn">新たに#〇〇の難読地名クイズを追加</a>
     </div>
 
     @foreach($big_questions as $big_question)
@@ -31,8 +32,8 @@
         <span class="question-name">
             {{ $big_question['big_question_name'] }}の難読地名クイズ
         </span>
-        <a href="" class="home-link-btn">{{ $big_question['big_question_name'] }}の難読地名クイズを削除</a>
-        <a href="" class="home-link-btn">新たに問題を追加</a>
+        <a href="/big_question/delete/{{ $big_question['id'] }}" class="home-link-btn">{{ $big_question['big_question_name'] }}の難読地名クイズを削除</a>
+        <a href="/question/add/{{ $big_question['id'] }}" class="home-link-btn">新たに問題を追加</a>
         <div class="questions-wrapper">
 
             @foreach($questions->where('big_question_id', $big_question->id) as $question)
@@ -41,7 +42,7 @@
                     <img src="/img/{{ $question['img'] }}" alt="" class="home-img">
                 </div>
                 <div class="home-link-btn-wrapper">
-                    <a href="" class="home-link-btn">問題を編集</a>
+                    <a href="/question/edit/{{ $question['big_question_id'] }}/{{ $question['question_id'] }}" class="home-link-btn">問題を編集</a>
                     <a href="" class="home-link-btn">問題を削除</a>
                 </div>
             </div>

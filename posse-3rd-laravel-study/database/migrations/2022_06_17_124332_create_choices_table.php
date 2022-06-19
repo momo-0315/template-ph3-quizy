@@ -15,6 +15,7 @@ class CreateChoicesTable extends Migration
     {
         Schema::create('choices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('big_question_id');
             $table->unsignedBigInteger('question_id');
             $table->string('choice_name', 500);
             $table->string('option_number');
