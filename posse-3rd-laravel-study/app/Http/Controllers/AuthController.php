@@ -70,8 +70,11 @@ class AuthController extends Controller
     {
         $inputs = $request->all();
         $latest_choice = Choice::where('big_question_id', $big_question_id)->orderBy('question_id', 'asc')->first();
-        $question_id = $latest_choice['question_id'] + 1;
-        // dd($question_id);
+        if($latest_choice == null) {
+            $question_id = 1;
+        } else {
+            $question_id = $latest_choice['question_id'] + 1;
+        }
         // dd($inputs['0']);
         Question::insertGetId(['big_question_id' => $big_question_id,  'question_id' => $question_id, 'img' => $inputs['img_file']]);
         Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['0'], 'option_number' => 0]);
@@ -126,7 +129,7 @@ class AuthController extends Controller
         return view('auth.edit.title', compact('big_question'));
     }
 
-    public function title_data_add(Request $request, $big_question_id)
+    public function title_data_edit(Request $request, $big_question_id)
     {
         $inputs = $request->all();
         BigQuestion::where('id', $big_question_id)->update(['big_question_name' => $inputs['title_name']]);
