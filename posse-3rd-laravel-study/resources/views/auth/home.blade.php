@@ -33,6 +33,7 @@
             {{ $big_question['big_question_name'] }}の難読地名クイズ
         </span>
         <a href="/big_question/delete/{{ $big_question['id'] }}" class="home-link-btn">{{ $big_question['big_question_name'] }}の難読地名クイズを削除</a>
+        <a href="/title/edit/{{ $big_question['id'] }}" class="home-link-btn">タイトルを編集</a>
         <a href="/question/add/{{ $big_question['id'] }}" class="home-link-btn">新たに問題を追加</a>
         <div class="questions-wrapper">
 
@@ -43,7 +44,7 @@
                 </div>
                 <div class="home-link-btn-wrapper">
                     <a href="/question/edit/{{ $question['big_question_id'] }}/{{ $question['question_id'] }}" class="home-link-btn">問題を編集</a>
-                    <a href="" class="home-link-btn">問題を削除</a>
+                    <a href="/question/delete/{{ $question['big_question_id'] }}/{{ $question['question_id'] }}" class="home-link-btn">問題を削除</a>
                 </div>
             </div>
             @endforeach

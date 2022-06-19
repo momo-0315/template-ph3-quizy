@@ -9,6 +9,7 @@ use App\Choice;
 
 class AuthController extends Controller
 {
+    //クイズ自体の追加
     public function big_question_add()
     {
         $big_questions = BigQuestion::all();;
@@ -34,7 +35,7 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    // 選択したクイズのidを削除formのページに送る
+    //クイズごと削除（問題、選択肢も削除）
     public function big_question_delete($id)
     {
         $big_question = BigQuestion::where('id', $id)->first();
@@ -42,7 +43,6 @@ class AuthController extends Controller
         return view('auth.big_question.delete', compact('big_question'));
     }
 
-    //クイズごと削除（問題、選択肢も削除）
     public function big_question_data_delete(Request $request, $id)
     {
         $inputs = $request->all();
@@ -69,14 +69,33 @@ class AuthController extends Controller
     public function question_data_add(Request $request, $big_question_id)
     {
         $inputs = $request->all();
-        $count = Choice::where('big_question_id', $big_question_id)->count();
-        $question_id = $count / 3 + 1;
+        $latest_choice = Choice::where('big_question_id', $big_question_id)->orderBy('question_id', 'asc')->first();
+        $question_id = $latest_choice['question_id'] + 1;
         // dd($question_id);
         // dd($inputs['0']);
         Question::insertGetId(['big_question_id' => $big_question_id,  'question_id' => $question_id, 'img' => $inputs['img_file']]);
         Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['0'], 'option_number' => 0]);
         Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['1'], 'option_number' => 1]);
         Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['2'], 'option_number' => 2]);
+        return redirect()->route('home');
+    }
+
+    //問題削除
+    public function question_delete($big_question_id, $question_id)
+    {
+        $big_question = BigQuestion::where('id', $big_question_id)->first();
+        $question = Question::where('big_question_id', $big_question_id)->where('question_id', $question_id)->first();
+        // dd($question);
+        $choices = Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->get();
+        return view('auth.edit.delete', compact('big_question', 'question', 'choices'));
+    }
+
+    public function question_data_delete(Request $request, $big_question_id, $question_id)
+    {
+        $questions = Question::where('big_question_id', $big_question_id)->where('question_id', $question_id);
+        $questions->delete();
+        $choices = Choice::where('question_id', $question_id);
+        $choices->delete();
         return redirect()->route('home');
     }
 
@@ -97,6 +116,20 @@ class AuthController extends Controller
         Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 0)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[0], 'option_number' => 0]);
         Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 1)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[1], 'option_number' => 1]);
         Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 2)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[2], 'option_number' => 2]);
+        return redirect()->route('home');
+    }
+
+    //クイズタイトルの編集
+    public function title_edit($big_question_id)
+    {
+        $big_question = BigQuestion::where('id', $big_question_id)->first();
+        return view('auth.edit.title', compact('big_question'));
+    }
+
+    public function title_data_add(Request $request, $big_question_id)
+    {
+        $inputs = $request->all();
+        BigQuestion::where('id', $big_question_id)->update(['big_question_name' => $inputs['title_name']]);
         return redirect()->route('home');
     }
 }
