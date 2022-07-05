@@ -21,7 +21,7 @@ class QuizController extends Controller
         $big_questions = BigQuestion::where('id', $id)->first();
         // dd($big_questions);
         $questions = Question::where('big_question_id', $id)->get();
-        $choices = Choice::get();
+        $choices = Choice::orderBy('order_number', 'asc')->where('big_question_id', $id)->get();
         return view('quizy', compact('big_questions', 'questions', 'choices'));
     }
 }

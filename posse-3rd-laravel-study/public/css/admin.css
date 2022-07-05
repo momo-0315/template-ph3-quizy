@@ -75,3 +75,9 @@
 .home-link-btn-wrapper {
     margin-top: 1rem;
 }
+
+.answer_choice_input_0 {
+    border: 2px solid #ff9900;
+    z-index: 10;
+    outline: 0;
+}

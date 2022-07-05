@@ -12,7 +12,7 @@ class AuthController extends Controller
     //クイズ自体の追加
     public function big_question_add()
     {
-        $big_questions = BigQuestion::all();;
+        $big_questions = BigQuestion::all();
         return view('auth.big_question.add', compact('big_questions'));
     }
 
@@ -77,9 +77,9 @@ class AuthController extends Controller
         }
         // dd($inputs['0']);
         Question::insertGetId(['big_question_id' => $big_question_id,  'question_id' => $question_id, 'img' => $inputs['img_file']]);
-        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['0'], 'option_number' => 0]);
-        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['1'], 'option_number' => 1]);
-        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['2'], 'option_number' => 2]);
+        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['0'], 'option_number' => 0, "order_number" => $inputs['order_0']]);
+        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['1'], 'option_number' => 1, "order_number" => $inputs['order_1']]);
+        Choice::insertGetId(['big_question_id' => $big_question_id, 'question_id' => $question_id, "choice_name" => $inputs['2'], 'option_number' => 2, "order_number" => $inputs['order_2']]);
         return redirect()->route('home');
     }
 
@@ -116,9 +116,9 @@ class AuthController extends Controller
     {
         $inputs = $request->all();
         // dd($inputs);
-        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 0)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[0], 'option_number' => 0]);
-        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 1)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[1], 'option_number' => 1]);
-        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 2)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[2], 'option_number' => 2]);
+        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 0)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[0], 'option_number' => 0, 'order_number' => $inputs['order_0']]);
+        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 1)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[1], 'option_number' => 1, 'order_number' => $inputs['order_1']]);
+        Choice::where('big_question_id', $big_question_id)->where('question_id', $question_id)->where('option_number', 2)->update(['big_question_id' => $big_question_id, 'question_id' => $question_id, 'choice_name' => $inputs[2], 'option_number' => 2, 'order_number' => $inputs['order_2']]);
         return redirect()->route('home');
     }
 

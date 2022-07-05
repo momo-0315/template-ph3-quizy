@@ -48,11 +48,11 @@
             </ul>
             <div class="answerBox" id="answerBox_{{ $question['id'] }}_0">
                 <p class="rightWrong right">正解</p>
-                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
+                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('option_number', 0 )->first()->choice_name }}」です！</p>
             </div>
             <div class="answerBox" id="answerBox_{{ $question['id'] }}">
                 <p class="rightWrong wrong">不正解</p>
-                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('answernumber', 0 )->first()->choice_name }}」です！</p>
+                <p class="description">正解は「{{ $choices->where('big_question_id', $big_questions->id)->where('question_id', $question->question_id)->where('option_number', 0 )->first()->choice_name }}」です！</p>
             </div>
 
             @endforeach

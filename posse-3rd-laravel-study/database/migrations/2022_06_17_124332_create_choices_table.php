@@ -19,6 +19,7 @@ class CreateChoicesTable extends Migration
             $table->unsignedBigInteger('question_id');
             $table->string('choice_name', 500);
             $table->string('option_number');
+            $table->string('order_number');
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
